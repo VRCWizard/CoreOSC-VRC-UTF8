@@ -272,7 +272,7 @@ namespace CoreOSC
             {
                 if (msg[i - 1] == 0)
                 {
-                    output = Encoding.ASCII.GetString(msg.SubArray(index, i - index));
+                    output = Encoding.ASCII.GetString(msg.SubArray(index, i - index));//I would probably change this to encode UTF8 if i needed to recieve string like that.
                     break;
                 }
             }
@@ -380,7 +380,7 @@ namespace CoreOSC
 
             byte[] msg = new byte[len];
 
-            var bytes = Encoding.ASCII.GetBytes(value);
+            var bytes = Encoding.UTF8.GetBytes(value);//changed encoding to UTF8 for VRCHAT OSC sending goodness
             bytes.CopyTo(msg, 0);
 
             return msg;
