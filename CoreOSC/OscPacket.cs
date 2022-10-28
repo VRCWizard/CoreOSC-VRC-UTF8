@@ -373,15 +373,20 @@ namespace CoreOSC
             return msg;
         }
 
-        protected static byte[] setString(string value)
+        protected static byte[] setString(string value1)
         {
+            byte[] bytes1 = Encoding.Default.GetBytes(value1);
+            string value = Encoding.UTF8.GetString(bytes1);
+
+
             int len = value.Length + (4 - value.Length % 4);
             if (len <= value.Length) len = len + 4;
 
-            byte[] msg = new byte[len];
+             byte[] msg = new byte[(value.Length*2)+(len * 2)];//times 2 just so i don't have to worry about errors from some special characters like chinese or japanese characters
 
-            var bytes = Encoding.UTF8.GetBytes(value);//changed encoding to UTF8 for VRCHAT OSC sending goodness
-            bytes.CopyTo(msg, 0);
+             var bytes = Encoding.UTF8.GetBytes(value);//changed encoding to UTF8 for VRCHAT OSC sending goodness //this method still crashes but does a littlebetter
+             bytes.CopyTo(msg, 0);
+
 
             return msg;
         }
