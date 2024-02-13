@@ -266,13 +266,14 @@ namespace CoreOSC
 
         private static string getString(byte[] msg, int index)
         {
+
             string output = null;
             int i = index + 4;
             for (; (i - 1) < msg.Length; i += 4)
             {
                 if (msg[i - 1] == 0)
                 {
-                    output = Encoding.ASCII.GetString(msg.SubArray(index, i - index));//I would probably change this to encode UTF8 if i needed to recieve string like that.
+                    output = Encoding.UTF8.GetString(msg.SubArray(index, i - index));//changed to encode utf8 without other changes
                     break;
                 }
             }
